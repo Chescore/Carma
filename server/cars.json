@@ -1,0 +1,108 @@
+{
+    "brands": [
+      {
+        "name": "Toyota",
+        "models": [
+          {
+            "name": "Corolla",
+            "type": "Sedan",
+            "year": 2022,
+            "price": 20000,
+            "image": "https://example.com/toyota-corolla.jpg"
+          },
+          {
+            "name": "Camry",
+            "type": "Sedan",
+            "year": 2022,
+            "price": 25000,
+            "image": "https://example.com/toyota-camry.jpg"
+          },
+          {
+            "name": "RAV4",
+            "type": "SUV",
+            "year": 2022,
+            "price": 30000,
+            "image": "https://example.com/toyota-rav4.jpg"
+          }
+        ]
+      },
+      {
+        "name": "Honda",
+        "models": [
+          {
+            "name": "Civic",
+            "type": "Sedan",
+            "year": 2022,
+            "price": 22000,
+            "image": "https://example.com/honda-civic.jpg"
+          },
+          {
+            "name": "Accord",
+            "type": "Sedan",
+            "year": 2022,
+            "price": 27000,
+            "image": "https://example.com/honda-accord.jpg"
+          },
+          {
+            "name": "CR-V",
+            "type": "SUV",
+            "year": 2022,
+            "price": 32000,
+            "image": "https://example.com/honda-crv.jpg"
+          }
+        ]
+      },
+      {
+        "name": "Ford",
+        "models": [
+          {
+            "name": "Mustang",
+            "type": "Coupe",
+            "year": 2022,
+            "price": 35000,
+            "image": "https://example.com/ford-mustang.jpg"
+          },
+          {
+            "name": "Fusion",
+            "type": "Sedan",
+            "year": 2022,
+            "price": 26000,
+            "image": "https://example.com/ford-fusion.jpg"
+          },
+          {
+            "name": "Escape",
+            "type": "SUV",
+            "year": 2022,
+            "price": 29000,
+            "image": "https://example.com/ford-escape.jpg"
+          }
+        ]
+      },
+      {
+        "name": "Chevrolet",
+        "models": [
+          {
+            "name": "Camaro",
+            "type": "Coupe",
+            "year": 2022,
+            "price": 37000,
+            "image": "https://example.com/chevrolet-camaro.jpg"
+          },
+          {
+            "name": "Malibu",
+            "type": "Sedan",
+            "year": 2022,
+            "price": 25000,
+            "image": "https://example.com/chevrolet-malibu.jpg"
+          },
+          {
+            "name": "Equinox",
+            "type": "SUV",
+            "year": 2022,
+            "price": 31000,
+            "image": "https://example.com/chevrolet-equinox.jpg"
+          }
+        ]
+      }
+    ]
+}
