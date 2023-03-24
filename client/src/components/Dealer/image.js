@@ -19,9 +19,9 @@ const VehicleImage = () => {
 
     return(
         <div>
-            <div>
+            {/* <div>
                 <img src={URL.createObjectURL(image)}></img>
-            </div>
+            </div> */}
             <form autoComplete='off' onSubmit={handleSubmit(imageSubmit)}>
                 <div>
                     <label>Image Upload</label>
