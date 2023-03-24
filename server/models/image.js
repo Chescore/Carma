@@ -1,9 +1,13 @@
 const mongoose = require("mongoose")
 
 const vehicleImageSchema = new mongoose.Schema({
-    image: {
+    data: {
         type: Buffer,
         required: true
+    },
+    contentType: {
+      type: String,
+      required:true
     },
     vehicle: {
       type: mongoose.Schema.Types.ObjectId,

@@ -4,7 +4,6 @@ import {useNavigate} from 'react-router-dom'
 import { useForm } from 'react-hook-form';
 
 import AuthContext from '../../hoc/AuthContext/dealer_auth';
-import VehicleImage from './image'; 
 
 const VehicleUpdate = () => {
     const navigate = useNavigate()
@@ -15,7 +14,9 @@ const VehicleUpdate = () => {
 
     const {handleSubmit,register, formState:{errors}} = useForm()
 
+    const [image, setImage] = useState('')
     const [vehicleDetails, setVehicleDetails] = useState({
+        image:'',
         brand: '',
         model:'',
         body_type: '',
@@ -26,7 +27,20 @@ const VehicleUpdate = () => {
 
     const onSubmit = async() =>{
         try{
-            await axios.post("http://localhost:5000/", vehicleDetails)
+            const formData = new FormData()
+            formData.append('image', vehicleDetails.image)
+            formData.append('brand', vehicleDetails.brand)
+            formData.append("model", vehicleDetails.model);
+            formData.append("body_type", vehicleDetails.body_type);
+            formData.append("year", vehicleDetails.year);
+            formData.append("price", vehicleDetails.price);
+            formData.append("description", vehicleDetails.description)
+            console.log(vehicleDetails)
+            await axios.post("http://localhost:5000/", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                }
+            })
             alert('Your inventory has been updated successfully')
             navigate('/inventory')
         }catch(err){
@@ -39,11 +53,20 @@ const VehicleUpdate = () => {
             <div>
                 Post your Vehicle here
             </div>
-            <div>
-                <VehicleImage/>
-            </div>
             <form autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
                 <div>
+                    <div>
+                        <label>Image Upload</label>
+                        <input type='file' 
+                            {...register("image",{required:{
+                                value:true,message:"This field is required"
+                            }})}
+                            placeholder='File Upload'
+                            onChange={(e)=>setVehicleDetails({...vehicleDetails,image:e.target.files[0]})}/>
+                            <div>
+                                {errors?.image?.message}
+                            </div>
+                    </div>
                     <div>
                         <label>Brand</label>
                         <input type='text' 

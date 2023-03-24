@@ -23,7 +23,7 @@ const vehicleSchema = new mongoose.Schema({
   },
   image: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'VehicleImage'
+    ref: 'Vehicle'
   },
   description: {
     type: String,
