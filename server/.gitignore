@@ -1,4 +1,5 @@
 /node_modules
+/uploads
 rejections.log
 exceptions.log
 .env
