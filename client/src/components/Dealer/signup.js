@@ -4,11 +4,13 @@ import {useNavigate, Link} from 'react-router-dom'
 import { useForm } from 'react-hook-form';
 
 import AuthContext from '../../hoc/AuthContext/dealer_auth';
+import DealerContext from '../../hoc/AuthContext/dealer_username';
 
 const DealerSignup = () => {
     const navigate = useNavigate()
 
     const {getDealerLoggedIn} = useContext(AuthContext)
+    const {setDealer} = useContext(DealerContext)
 
     const {handleSubmit,register, formState:{errors}} = useForm()
 
@@ -24,6 +26,7 @@ const DealerSignup = () => {
         try{
             await axios.post("http://localhost:5000/dealer/register", authDetails)
             await getDealerLoggedIn()
+            setDealer(authDetails.username)
             alert("Registration was successful")
             navigate('/vehicle_update')
         }catch(err){

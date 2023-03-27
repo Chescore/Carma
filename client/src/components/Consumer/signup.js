@@ -3,6 +3,7 @@ import axios from 'axios';
 import {useNavigate, Link} from 'react-router-dom'
 import { useForm } from 'react-hook-form';
 
+import ConsumerContext from '../../hoc/AuthContext/consumer_username';
 import AuthContext from '../../hoc/AuthContext/consumer_auth';
 
 const ConsumerSignup = () => {
@@ -20,10 +21,13 @@ const ConsumerSignup = () => {
         passwordVerify: ''
     })
 
+    const {setConsumer} = useContext(ConsumerContext)
+
     const onSubmit = async() =>{
         try{
             await axios.post("http://localhost:5000/consumer/register", authDetails)
             await getConsumerLoggedIn()
+            setConsumer(authDetails.username)
             alert("Registration was successful!")
             navigate('/inventory')
         }catch(err){

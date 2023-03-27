@@ -17,7 +17,7 @@ const ConsumerLogin = () => {
         email:'',
         password:''
     })
-    const {consumer, setConsumer} = useContext(ConsumerContext)
+    const {setConsumer} = useContext(ConsumerContext)
 
     const onSubmit = async() =>{
         try{

@@ -48,9 +48,8 @@ router.get('/', async(req,res)=>{
         const vehicles = await Vehicle.find()
         
         const images = await VehicleImage.find(vehicles.image)
-        vehicles.image = images
 
-        res.status(200).json({vehicles: vehicles, images, images})
+        res.status(200).json({vehicles: vehicles, images: images})
     }catch(error){
         res.status(404).json({message: error.message})
     }

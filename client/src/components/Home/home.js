@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext from '../../hoc/AuthContext/dealer_auth';
 
 const Home = () => {
+    const {dealerLoggedIn, getDealerLoggedIn} = useContext(AuthContext)
+
     return (
         <div>
             <div>
@@ -15,7 +18,10 @@ const Home = () => {
                     <Link to='/consumer_login'>Buy a car</Link>
                 </div>
                 <div>
-                    <Link to='/dealer_login'>Sell a car</Link>
+                    {dealerLoggedIn===false ? 
+                        <Link to='/dealer_login'>Sign in or Create a Dealer Account</Link> :
+                        <Link to='/vehicle_update'>Sell a car</Link>
+                    }
                 </div>
             </div>
         </div>

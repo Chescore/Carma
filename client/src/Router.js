@@ -12,8 +12,6 @@ import Inventory from './components/Inventory/vehicles';
 import Vehicle from './components/Inventory/vehicle'
 import Search from './components/Search/search';
 
-import AuthContext from './hoc/AuthContext/consumer_auth';
-
 const Router = () => {
     return (
         <div>

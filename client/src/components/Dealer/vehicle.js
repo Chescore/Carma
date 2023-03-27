@@ -132,7 +132,7 @@ const VehicleUpdate = () => {
                     </div>
                     <div>
                         <label>Desription</label>
-                        <input type='text' 
+                        <textarea maxLength={300} cols={50} rows={20}  
                             {...register("description",{required:{
                                 value:true,message:"This field is required"
                             }})}

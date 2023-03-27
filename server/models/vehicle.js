@@ -29,6 +29,9 @@ const vehicleSchema = new mongoose.Schema({
     type: String,
     required: [true, "This field is required"]
   },
+  dealer: {
+    type: String
+  },
   inventory:{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Dealer'
