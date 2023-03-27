@@ -4,6 +4,7 @@ import {useNavigate, Link} from 'react-router-dom'
 import { useForm } from 'react-hook-form';
 
 import AuthContext from '../../hoc/AuthContext/consumer_auth';
+import ConsumerContext from '../../hoc/AuthContext/consumer_username';
 
 const ConsumerLogin = () => {
     const {getConsumerLoggedIn} = useContext(AuthContext)
@@ -16,11 +17,13 @@ const ConsumerLogin = () => {
         email:'',
         password:''
     })
+    const {consumer, setConsumer} = useContext(ConsumerContext)
 
     const onSubmit = async() =>{
         try{
             await axios.post("http://localhost:5000/consumer/login", authDetails)
             await getConsumerLoggedIn()
+            setConsumer(authDetails.email)
             alert("Login was successful")
             navigate('/inventory')
         }catch(err){

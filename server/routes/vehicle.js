@@ -11,8 +11,6 @@ const upload = multer()
 
 router.post('/', dealer_auth, upload.single('image'),async(req,res)=>{
     try{
-        console.log(req.file)
-        console.log(req.body)
         const {brand, model, body_type, year, price, description} = req.body
 
         const vehicleImage = new VehicleImage({
@@ -44,16 +42,63 @@ router.post('/', dealer_auth, upload.single('image'),async(req,res)=>{
         res.status(404).json({message: error.message})
     }
 })
-// router.post('/image', dealer_auth, upload.single("image"), async(req, res)=>{
-//     console.log(req.file)
-// })
 
 router.get('/', async(req,res)=>{
     try{
         const vehicles = await Vehicle.find()
-        res.status(200).json(vehicles)
+        
+        const images = await VehicleImage.find(vehicles.image)
+        vehicles.image = images
+
+        res.status(200).json({vehicles: vehicles, images, images})
     }catch(error){
         res.status(404).json({message: error.message})
+    }
+})
+
+router.get('/search/brand/:key', async(req,res)=>{
+    try{
+        let result = await Vehicle.find({
+            "$or": [
+                {
+                    brand: { $regex: req.params.key}
+                }
+            ]
+        })
+        res.status(200).send(result)
+    }catch(error){
+        res.status(404).json({message:error.message})
+    }
+})
+
+router.get('/search/model/:key', async(req,res)=>{
+    try{
+        let result = await Vehicle.find({
+            "$or": [
+                {
+                    model: { $regex: req.params.key}
+                }
+            ]
+        })
+        res.status(200).send(result)
+    }catch(error){
+        res.status(404).json({message:error.message})
+    }
+})
+
+router.get('/search/year/:key', async(req,res)=>{
+    try{
+        let result = await Vehicle.find({
+            "$or": [
+                {
+                    year: parseInt(req.params.key)
+                }
+            ]
+        })
+        if(!result) return res.status(400).send("Result not found")
+        res.status(200).json(result)
+    }catch(error){
+        res.status(404).json({message:error.message})
     }
 })
 
@@ -73,7 +118,7 @@ router.get('/image/:id', async(req,res)=>{
         const image = await VehicleImage.findById(vehicle.image)
         res.status(200).send(image)
     }catch(err){
-        res.status(404).send(message)
+        res.status(404).json({message:error.message})
     }   
 })
 

@@ -4,11 +4,6 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
 const { Dealer } = require('../models/dealer');
 
-router.get('/', async(req,res)=>{
-    const dealers = await Dealer.find()
-    res.send(dealers)
-})
-
 router.post('/register',async(req,res)=>{
     try{
         const {username, email, phone, password, passwordVerify} = req.body;

@@ -3,7 +3,6 @@ const router = express.Router()
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs');
 const { Consumer } = require('../models/consumer')
-const { Transaction } = require('../models/transaction')
 
 router.post('/register',async(req,res)=>{
     try{

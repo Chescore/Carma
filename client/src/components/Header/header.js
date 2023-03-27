@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import { Link } from 'react-router-dom' 
 
-import Logout from '../Logout/logout';
-import AuthContext from '../../hoc/AuthContext/consumer_auth';
+import ConsumerHeader from './consumer_header'
+import DealerHeader from './dealer_header'
 
 const Header = () => {
-    const {consumerLoggedIn} = useContext(AuthContext)
 
     const items = [
         {
@@ -35,10 +34,8 @@ const Header = () => {
     return (
         <div>
             {showItems()}
-            {consumerLoggedIn===true ?  
-                <div><Logout/></div> :
-                <></>    
-            }
+            <ConsumerHeader/>
+            <DealerHeader/>
         </div>
     );
 };

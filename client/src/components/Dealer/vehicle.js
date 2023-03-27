@@ -14,7 +14,6 @@ const VehicleUpdate = () => {
 
     const {handleSubmit,register, formState:{errors}} = useForm()
 
-    const [image, setImage] = useState('')
     const [vehicleDetails, setVehicleDetails] = useState({
         image:'',
         brand: '',
@@ -35,7 +34,6 @@ const VehicleUpdate = () => {
             formData.append("year", vehicleDetails.year);
             formData.append("price", vehicleDetails.price);
             formData.append("description", vehicleDetails.description)
-            console.log(vehicleDetails)
             await axios.post("http://localhost:5000/", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
