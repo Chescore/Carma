@@ -10,7 +10,7 @@ const Search = () => {
     async function getVehicleList(){
         try{
             let response = await axios.get('http://localhost:5000/')
-            setVehicles(response.data)
+            setVehicles(response.data.vehicles)
         }catch(err){
             console.log(err.response.data)
         }
