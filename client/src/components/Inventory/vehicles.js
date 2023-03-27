@@ -27,7 +27,6 @@ const Vehicles = () => {
             let base64Image = Buffer.from(images[i].data).toString('base64')
             return(
                 <Link key={i} to={`/inventory/${vehicle._id}`}>
-                    <div>{vehicle.dealer}</div>
                     <div>{vehicle.brand}</div>
                     <div>{vehicle.year} {vehicle.brand} {vehicle.model}</div>
                     <div><img src={`data:${images[i].contentType};base64,${base64Image}`} alt={vehicle.model}/></div>
