@@ -24,7 +24,7 @@ const Header = () => {
     const showItems = () => {
         return items.map((item, i)=>{
             return(
-                <div key={i}>
+                <div key={i} className='px-4'>
                     <Link to={item.link}>{item.text}</Link>
                 </div>
             )
@@ -32,10 +32,14 @@ const Header = () => {
     }
 
     return (
-        <div>
-            {showItems()}
-            <ConsumerHeader/>
-            <DealerHeader/>
+        <div className='shadow-sm py-2 d-flex flex-row'>
+            <div className='d-flex flex-row'>
+                {showItems()}
+            </div>
+            <div className=''>
+                <ConsumerHeader/>
+                <DealerHeader/>
+            </div>
         </div>
     );
 };

@@ -24,4 +24,5 @@ const ConsumerAuthContextProvider = ({children}) => {
 };
 
 export default AuthContext;
+export { AuthContext }
 export { ConsumerAuthContextProvider };

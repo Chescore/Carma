@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import {useNavigate, useParams} from 'react-router-dom'
 import {Buffer} from 'buffer'
+import {Card} from 'react-bootstrap'
 
 import AuthContext from '../../hoc/AuthContext/consumer_auth'
 
@@ -45,21 +46,23 @@ const Vehicle = () => {
     const showVehicle = () => {
         return(
             <div>
-                <div>Brand: {vehicle.brand}</div>
-                <div>Model: {vehicle.year} {vehicle.brand} {vehicle.model}</div>
-                <div>Body Type: {vehicle.body_type}</div>
-                <div><img src={imageUrl} alt="Vehicle"/></div>
-                <div>Info: {vehicle.description}</div>
-                <div>Price: {vehicle.price}$</div>
-            </div>
+                <div className='text-info text-uppercase'>{vehicle.dealer}</div>
+                <h1 className='font-nunito text-secondary'>{vehicle.brand} {vehicle.model}</h1>
+                <h3>{vehicle.body_type}</h3>
+                <h4 className='font-nunito'>Ksh. {vehicle.price}</h4>
+                <div><img width='750px' src={imageUrl} alt="Vehicle"/></div>
+                <Card className='m-4 p-4'>
+                    <div>{vehicle.description}</div>
+                </Card>
+            </div>                
         )
     }
 
     return (
-        <div>
+        <div className='text-center my-4'>
             {showVehicle()}
             {consumerLoggedIn===true ? 
-            <button onClick={getCheckout}>
+            <button className='btn btn-outline-primary' onClick={getCheckout}>
                 Buy Now!
             </button> :
             <></>}

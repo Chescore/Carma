@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom'
 import {Buffer} from 'buffer'
+import {Card} from 'react-bootstrap'
 
 const Vehicles = () => {
     let [vehicles, setVehicles] = useState([])
@@ -26,12 +27,13 @@ const Vehicles = () => {
         return vehicles.map((vehicle,i)=>{
             let base64Image = Buffer.from(images[i].data).toString('base64')
             return(
-                <Link key={i} to={`/inventory/${vehicle._id}`}>
-                    <div>{vehicle.brand}</div>
-                    <div>{vehicle.year} {vehicle.brand} {vehicle.model}</div>
-                    <div><img src={`data:${images[i].contentType};base64,${base64Image}`} alt={vehicle.model}/></div>
-                    <div>{vehicle.price}</div>
-                </Link>
+                <Card className='shadow-sm m-4 text-center py-4'>
+                    <Link className='text-decoration-none text-secondary' key={i} to={`/inventory/${vehicle._id}`}>
+                        <div>{vehicle.year} {vehicle.brand} {vehicle.model}</div>
+                        <div><img src={`data:${images[i].contentType};base64,${base64Image}`} alt={vehicle.model}/></div>
+                        <div>Ksh. {vehicle.price}</div>
+                    </Link>
+                </Card>
             )
         })
     }

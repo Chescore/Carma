@@ -1,13 +1,46 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: 'Spectral';
+  src: url('../public/fonts/Spectral-Light.ttf');
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+  font-family: 'Nunito';
+  src: url('../public/fonts/Nunito-Medium.ttf');
+}
+
+@keyframes animatedBackground {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
+}
+
+.font-spectral {
+  font-family: 'Spectral';
+}
+
+.font-nunito {
+  font-family: 'Nunito';
+}
+
+.screen {
+  min-height: 100vh;
+}
+
+.bg-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url('../public/background/Car\ Background.jpg');
+  animation: animatedBackground;
+}
+
+.form-design {
+  width: 330px;
+}
+
+.form-lg-textarea {
+  width: 60%;
 }

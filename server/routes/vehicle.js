@@ -57,14 +57,14 @@ router.get('/', async(req,res)=>{
 
 router.get('/search/brand/:key', async(req,res)=>{
     try{
-        let result = await Vehicle.find({
+        let vehicles = await Vehicle.find({
             "$or": [
                 {
                     brand: { $regex: req.params.key}
                 }
             ]
         })
-        res.status(200).send(result)
+        res.status(200).json({vehicles: vehicles})
     }catch(error){
         res.status(404).json({message:error.message})
     }
@@ -72,14 +72,15 @@ router.get('/search/brand/:key', async(req,res)=>{
 
 router.get('/search/model/:key', async(req,res)=>{
     try{
-        let result = await Vehicle.find({
+        let vehicles = await Vehicle.find({
             "$or": [
                 {
                     model: { $regex: req.params.key}
                 }
             ]
         })
-        res.status(200).send(result)
+        const images = await VehicleImage.find(vehicles.image)
+        res.status(200).json({vehicles: vehicles, images: images})
     }catch(error){
         res.status(404).json({message:error.message})
     }
@@ -87,15 +88,15 @@ router.get('/search/model/:key', async(req,res)=>{
 
 router.get('/search/year/:key', async(req,res)=>{
     try{
-        let result = await Vehicle.find({
+        let vehicles = await Vehicle.find({
             "$or": [
                 {
                     year: parseInt(req.params.key)
                 }
             ]
         })
-        if(!result) return res.status(400).send("Result not found")
-        res.status(200).json(result)
+        const images = await VehicleImage.find(vehicles.image)
+        res.status(200).json({vehicles: vehicles, images: images})
     }catch(error){
         res.status(404).json({message:error.message})
     }

@@ -7,26 +7,33 @@ const {Transaction} = require('../models/transaction')
 const {Consumer} = require("../models/consumer")
 const {access} = require('../middleware/access')
 const {consumer_auth} = require('../middleware/consumer_auth')
+
 const moment = require('moment')
 const unirest = require('unirest')
+const axios = require('axios')
 
 
-router.get('/register_url', access, async(req,res)=>{    
-    unirest('POST', 'https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl')
-    .headers({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${req.access.access_token}`
-    })
-    .send(JSON.stringify({
-        "ShortCode": 600984,
-        "ResponseType": "Canceled",
-        "ConfirmationURL": process.env.PUBLIC_IP +"/transaction/confirmation",
-        "ValidationURL": process.env.PUBLIC_IP +"/transaction/validation",
-    }))
-    .end(response => {
-        if (response.error) console.log(response.error);
-        res.send(response.raw_body);
-    });
+router.get('/register_url', access, async(req,res)=>{   
+    try{
+        unirest('POST', 'https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl')
+        .headers({
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${req.access.access_token}`
+        })
+        .send(JSON.stringify({
+            "ShortCode": 600984,
+            "ResponseType": "Completed",
+            "ConfirmationURL": process.env.PUBLIC_IP +"/transaction/confirmation",
+            "ValidationURL": process.env.PUBLIC_IP +"/transaction/validation",
+        }))
+        .end(response => {
+            if (response.error) return res.send(response.error);
+            res.send(response.raw_body);
+        });
+    } 
+    catch(err){
+        res.send(err.message)
+    }
 })
 
 router.post('/:id', consumer_auth, access, async(req,res)=>{
@@ -51,33 +58,32 @@ router.post('/:id', consumer_auth, access, async(req,res)=>{
             price: vehicle.price
         })
 
-        unirest('POST', 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest')
-        .headers({
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${req.access.access_token}` 
-        })
-        .send(JSON.stringify({
+        let response = axios.post('https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest' , JSON.stringify({
             "BusinessShortCode": 174379,
             "Password": password,
             "Timestamp": timestamp,
             "TransactionType": "CustomerPayBillOnline",
             "Amount": 1,
-            "PartyA": phone,    //254759694831
+            "PartyA": phone,    
             "PartyB": 174379,
             "PhoneNumber": phone,
             "CallBackURL": process.env.PUBLIC_IP +"/transaction/callback",
             "AccountReference": "TruckKun",
             "TransactionDesc": "Payment of X" 
-        }))
-        .end(async(response) => {
-            if (response.error) return res.send(response.error);
-            await Dealer.findByIdAndUpdate(vehicle.inventory, {$push: {transactions: transaction}})
-            await Consumer.findByIdAndUpdate(req.user, {$push: {transactions: transaction}})
-            await transaction.save()
-            res.send(response.raw_body);
+        }), {
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${req.access.access_token}` 
+            }
         })
+
+        if(response.error) return res.send(response.error);
+        await Dealer.findByIdAndUpdate(vehicle.inventory, {$push: {transactions: transaction}})
+        await Consumer.findByIdAndUpdate(req.user, {$push: {transactions: transaction}})
+        await transaction.save()
+        res.send(response.raw_body);
     }catch(error){
-        console.log(error)
+        res.send(error.message)
     }
 })
 

@@ -11,10 +11,9 @@ const ConsumerHeader = () => {
     return(
         <div>
             {consumerLoggedIn===true ? 
-                <div>
-                    <div>Buyer Account</div>
-                    <div>{consumer}</div>
-                    <Logout/>
+                <div className='d-flex flex-row-reverse'>
+                    <div className='px-4 text-primary'>{consumer}</div>
+                    <div className='px-2'><Logout/></div>
                 </div>
             : <></>}
         </div>

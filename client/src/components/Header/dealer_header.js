@@ -11,10 +11,9 @@ const DealerHeader = () => {
     return(
         <div>
             {dealerLoggedIn===true ? 
-                <div>
-                    <div>Dealer Account</div>
-                    <div>{dealer}</div>
-                    <Logout/>
+                <div className='d-flex flex-row-reverse'>
+                    <div className='px-4 text-primary'>{dealer}</div>
+                    <div className='px-2'><Logout/></div>
                 </div>
             : <></>}
         </div>

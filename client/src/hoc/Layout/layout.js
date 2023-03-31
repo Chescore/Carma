@@ -5,9 +5,9 @@ import Footer from '../../components/Footer/footer';
 
 const Layout = ({children}) => {
     return (
-        <div>
+        <div className='font-spectral'>
             <Header/>
-             <div className='min-h-screen'>{children}</div>
+             <div className='screen'>{children}</div>
             <Footer/>
         </div>
     );
