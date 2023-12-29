@@ -44,17 +44,6 @@ Welcome to Carma, a vehicle management system which is a comprehensive web appli
     cd ../client
     npm install
 
-#### Configure environment variables:
-
-  Create a .env file in the server directory.
-
-  #### Set the following variables:
-
-  env
-
-    PORT=3001
-    MONGODB_URI=mongodb://localhost:27017/Carma
-
 #### Start the server:
 
 bash
